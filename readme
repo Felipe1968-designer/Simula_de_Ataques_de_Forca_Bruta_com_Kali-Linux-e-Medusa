@@ -1,0 +1,169 @@
+# 🔐 Desafio DIO - Simulação de Ataques de Força Bruta com Kali Linux e Medusa
+
+## 📌 Descrição do Projeto
+
+Este projeto tem como objetivo simular cenários reais de ataques de força bruta em um ambiente controlado, utilizando ferramentas de segurança ofensiva para fins educacionais. Foram utilizados o Kali Linux como máquina atacante e o Metasploitable 2 como máquina vulnerável, ambos configurados em ambiente virtual com rede isolada.
+
+O foco principal foi compreender o funcionamento de ataques de força bruta em diferentes serviços e aplicar medidas de mitigação baseadas nos resultados obtidos.
+
+---
+
+## 🧠 Objetivos de Aprendizagem
+
+* Compreender ataques de força bruta em serviços como FTP, Web (DVWA) e SMB;
+* Utilizar ferramentas como Medusa e Nmap em ambiente controlado;
+* Praticar enumeração de serviços e validação de credenciais;
+* Documentar processos técnicos de forma clara;
+* Identificar vulnerabilidades e propor medidas de mitigação;
+* Utilizar o GitHub como portfólio técnico.
+
+---
+
+## 🖥️ Ambiente de Laboratório
+
+### 🔧 Ferramentas utilizadas:
+
+* Kali Linux (máquina atacante)
+* Metasploitable 2 (máquina vulnerável)
+* VirtualBox
+
+### 🌐 Configuração de Rede:
+
+* Tipo: Rede Interna
+* Nome: lab
+* IPs configurados manualmente:
+
+  * Kali: 192.168.0.11
+  * Metasploitable: 192.168.0.10
+
+---
+
+## 🔍 Etapas do Projeto
+
+### 1️⃣ Reconhecimento com Nmap
+
+```bash
+nmap -sV -p 21,22,80,445,139 192.168.0.10
+```
+
+🔎 Resultado:
+
+* Identificação de serviços ativos como FTP, SSH, HTTP e SMB
+
+---
+
+### 2️⃣ Ataque de Força Bruta em FTP (Medusa)
+
+#### 📁 Wordlists utilizadas:
+
+* users.txt
+* pass.txt
+
+#### ⚙️ Comando:
+
+```bash
+medusa -h 192.168.0.10 -U users.txt -P pass.txt -M ftp -t 6
+```
+
+#### ✅ Resultado:
+
+Credenciais válidas encontradas:
+
+```text
+User: msfadmin
+Password: msfadmin
+```
+
+---
+
+### 3️⃣ Acesso via FTP
+
+```bash
+ftp 192.168.0.10
+```
+
+Login realizado com sucesso.
+
+#### 📂 Comandos utilizados:
+
+```bash
+ls
+pwd
+get arquivo.txt
+put arquivo.txt
+```
+
+---
+
+### 4️⃣ Simulação com DVWA (Web)
+
+* Testes de autenticação em formulário web
+* Uso de wordlists para tentativa de login
+* Identificação de ausência de proteção contra brute force
+
+---
+
+### 5️⃣ Teste em SMB (Password Spraying)
+
+* Enumeração de usuários
+* Tentativas de login com senhas comuns
+* Avaliação de políticas de autenticação
+
+---
+
+## 🔐 Vulnerabilidades Identificadas
+
+* Senhas fracas e previsíveis
+* Ausência de bloqueio após múltiplas tentativas
+* Serviços expostos sem proteção
+* Falta de autenticação robusta
+
+---
+
+## 🛡️ Medidas de Mitigação
+
+* Implementação de políticas de senha forte
+* Bloqueio de conta após tentativas falhas
+* Uso de autenticação multifator (MFA)
+* Monitoramento de logs e tentativas de acesso
+* Restrição de serviços desnecessários
+* Uso de ferramentas como Fail2Ban
+
+---
+
+## 📊 Conclusão
+
+Este laboratório permitiu compreender na prática como ataques de força bruta funcionam e como sistemas mal configurados podem ser facilmente comprometidos. A experiência reforça a importância de boas práticas de segurança e monitoramento contínuo.
+
+---
+
+## 📁 Estrutura do Repositório
+
+```
+/README.md
+/wordlists
+    users.txt
+    pass.txt
+/images (opcional)
+```
+
+---
+
+## ⚠️ Aviso Importante
+
+Este projeto foi realizado em ambiente controlado para fins educacionais.
+Não realize testes em sistemas reais sem autorização.
+
+---
+
+## 🚀 Considerações Finais
+
+A prática em laboratório é essencial para consolidar conhecimentos em segurança da informação. Este projeto demonstra não apenas a execução de ataques, mas também a importância da defesa e prevenção.
+
+---
+
+## 🔗 Autor
+
+Felipe Guillermo Fuentes Urbina
+
+---
